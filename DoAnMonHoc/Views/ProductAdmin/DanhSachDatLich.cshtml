@@ -1,0 +1,40 @@
+﻿@model IEnumerable<DoAnMonHoc.Models.Booking>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">Danh sách đặt lịch</h2>
+        <div class="container">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr class="text-nowrap">
+                        <th scope="col">Mã đặt lịch</th>
+                        <th scope="col">Họ và Tên</th>
+                        <th scope="col">Số Điện Thoại</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Gói Chụp</th>
+                        <th scope="col">Địa Chỉ</th>
+                        <th scope="col">Ghi Chú</th>
+                        <th scope="col">Thời Gian Chụp Dự Kiến</th>
+                        <th scope="col">Thời Gian đặt lịch</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Model)
+                    {
+                        <tr>
+                            <td>@booking.Madatlich</td>
+                            <td>@booking.Hovaten</td>
+                            <td>@booking.Sđt</td>
+                            <td>@booking.Email</td>
+                            <td>@booking.Tengoichup</td>
+                            <td>@booking.Diachi</td>
+                            <td>@booking.Ghichu</td>
+                            <td>@booking.Ngaydukienchup</td>
+                            <td>@booking.Thoigianlienheit</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <a asp-action="Index" asp-controller="ProductAdmin" class="btn btn-primary btn-sm ml-5"> Trở về</a>
+</body>

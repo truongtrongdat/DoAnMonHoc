@@ -1,0 +1,47 @@
+﻿@model List<DoAnMonHoc.Models.Album>;
+
+
+<div class="container">
+    <p class="h2 text-center"> Quản lý Album</p>
+
+    <a href="/ProductAdmin" class="btn btn-primary">Quay lại</a>
+
+    <div class="btn-group float-end mb-4">
+        <a class="btn btn-success round" href="/AlbumAdmin/AddEdit/0">
+            <i class="fas fa-plus-square"></i>
+        </a>
+    </div>
+
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <td>STT</td>
+                <td>Tên Album</td>
+                <td>Ghi chú</td>
+                <td>Link Album</td>
+                <td>Ảnh</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AlbumId</td>
+                    <td>@item.TenAlbum</td>
+                    <td>@item.GhiChu</td>
+                    <td>
+                        <a href="@item.LinkOutAlbumAnh" target="_blank">Xem</a>
+                    </td>
+                    <td>
+                        <img src="@item.LinkAlbumAnh" style="width: 100px; height: 100px" />
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="/AlbumAdmin/AddEdit/@item.AlbumId">Sửa</a>
+                        <a class="btn btn-danger" href="/AlbumAdmin/Delete/@item.AlbumId">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

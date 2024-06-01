@@ -1,0 +1,112 @@
+use AZStudioDb
+
+INSERT INTO ProductCategories(TenLoai,MoTa,HinhAnh) VALUES
+(N'Kỷ yếu',null,null),
+(N'Thời Trang',null,null),
+(N'Áo dài',null,null),
+(N'Váy cưới',null,null),
+(N'Bộ đồ Vest',null,null)
+INSERT INTO sizes(TenSize) VALUES
+(N'XS'),
+(N'S'),
+(N'M'),
+(N'L'),
+(N'XL')
+INSERT INTO thanhToans(PhuongThucThanhToan) VALUES
+(N'Thanh Toán Paypal'),
+(N'Thanh Toán VnPay'),
+(N'Thanh Toán Trả sau')
+
+INSERT INTO vaiTros (TenVaiTro)
+VALUES(N'Người dùng'),
+(N'Admin')
+
+INSERT INTO TrangThais(TenTrangThai) VALUES
+(N'Đã đặt hàng'),
+(N'Đã giao hàng'),
+(N'Đã hủy giao hàng'),
+(N'Chờ giao hàng')
+
+INSERT INTO nhaCungCaps(MaNhaCungCap,TenNhaCungCap,SoDienThoai,Logo,DiaChi,Email,TenNguoiLienLac) VALUES
+('NCC001',N'ETHER BRIDAL','0935 641 681',null,N'12 Đống Đa, Phường Thuận Phước, Quận Hải Châu, Đà Nẵng','either@gmail.com',N'Tiến'),
+('NCC002',N'Vera Wang','0812 345 666',null,N'New York, Hoa Kỳ','veraEllenWang@gmail.com',N'Vera Ellen Wang'),
+('NCC003',N'Dior','0812 345 688',null,N'30 Avenue Montaigne ở Paris','McQueen@gmail.com',N'Christian Dior')
+
+INSERT INTO Products(MaSanPham,TenSanPham,DonGia,Hinh,SoLuongBan,SoLuongXem,NgaySanXuat,MoTa,SoLuong,MaLoai,MaNhaCungCap,MaSize) VALUES
+('SP0001',N'Váy lễ dòng premium limited-LM278',1000000,N'Váy lễ dòng premium limited-LM278.png',2,100,'2024-04-09',N'ETHER BRIDAL được biết đến là tiệm áo cưới Đà Nẵng đứng top đầu với phong cách “Minimalism” tại Đà Nẵng.
+ Với các mẫu mã mang phong cách tinh tế, thanh lịch nhưng không kém phần sang trọng,  ETHER BRIDAL đảm bảo tôn lên vẻ đẹp của cô dâu, quý phái và nổi bật nhất trong ngày trọng đại. Tất cả trang phục tại ETHER đều được chọn lọc chất liệu cao cấp, đa dạng, đi từng bước đo, may với sự đầu tư, kỹ càng đến từng chi tiết chỉ để đem đến những bộ sản phẩm phù hợp với từng vóc dáng, cá tính của bạn',10,4,'NCC002',1),
+
+ ('SP0002',N'Váy bàn đuôi cá dòng Grace LXBCT108_1',1000000,N'Váy bàn đuôi cá dòng Grace LXBCT108_1.png',2,100,'2024-04-09',N'ETHER BRIDAL được biết đến là tiệm áo cưới Đà Nẵng đứng top đầu với phong cách “Minimalism” tại Đà Nẵng.
+Với các mẫu mã mang phong cách tinh tế, thanh lịch nhưng không kém phần sang trọng,  ETHER BRIDAL đảm bảo tôn lên vẻ đẹp của cô dâu, quý phái và nổi bật nhất trong ngày trọng đại. Tất cả trang phục tại ETHER đều được chọn lọc chất liệu cao cấp, đa dạng, đi từng bước đo, may với sự đầu tư, kỹ càng đến từng chi tiết chỉ để đem đến những bộ sản phẩm phù hợp với từng vóc dáng, cá tính của bạn',10,4,'NCC002',1),
+
+ ('SP0003',N'Váy lễ Haute Couture-CTH009_1',1200000,N'Váy lễ Haute Couture-CTH009_1.png',40,220,'2024-01-27',N'VÁY CƯỚI EITHER BRIDAL, là váy lễ dòng LUXURY với chất liệu vải lụa satin cao cấp, được nhiều cô dâu lựa chọn để mặc trong ngày cưới của mình với vẻ đẹp quyến rũ và sang trọng khiến cho mọi ánh nhìn của mọi người đều hướng về cô dâu trong lễ đường.
+Với thiết kế trễ vai tinh tế với những bông hoa là điểm nhấn của bộ váy, được sắp xếp tỉ mỉ, hài hòa từ phần trước ngực đến phía sau, ôm trọn phần lưng trần nở kín nữa hở quyến rũ cho cô dâu.',212,4,'NCC003',1),
+
+('SP0004',N'Váy lễ Haute Couture-CTH009',500000,N'Váy lễ Haute Couture-CTH009.png',30,3120,'2024-02-11',N'VÁY CƯỚI TRỄ VAI HOA – TVHLL, là váy lễ dòng LUXURY với chất liệu vải lụa satin cao cấp, được nhiều cô dâu lựa chọn để mặc trong ngày cưới của mình với vẻ đẹp quyến rũ và sang trọng khiến cho mọi ánh nhìn của mọi người đều hướng về cô dâu trong lễ đường.
+Với thiết kế trễ vai tinh tế với những bông hoa là điểm nhấn của bộ váy, được sắp xếp tỉ mỉ, hài hòa từ phần trước ngực đến phía sau, ôm trọn phần lưng trần nở kín nữa hở quyến rũ cho cô dâu.',111,4,'NCC003',1),
+
+('SP0005',N'BỘ TUXEDO ĐEN CỔ GẤM',1650000,N'BỘ TUXEDO ĐEN CỔ GẤM_1.png',25,1024,'2024-04-21',N'Áo khoác vest thường ngày phong cách nóng bỏng mùa thu đông 2023 của Dior Dior có thiết kế thời trang và đơn giản nhất, thanh lịch và tươm tất, đồng thời làm nổi bật sự tinh tế trong sự giản dị. Vải: Loại vải sợi polyester được tùy chỉnh công nghệ này không phải là thiết kế truyền thống mà trông trẻ trung và thời trang hơn.Các chi tiết rất đặc biệt về hiệu ứng phần thân trên.Đó là kiểu dáng thông thường nhưng đường may rất đặc biệt.Hiệu ứng không lỏng lẻo hoặc thon gọn nhưng vừa phải, dù béo hay gầy đều có thể mặc nhiều kiểu dáng khác nhau.LU Size:48-56',100,5,'NCC001',3),
+('SP0006',N'BỘ TUXEDO TRẮNG CỔ ĐEN',1950000,N'BỘ TUXEDO TRẮNG CỔ ĐEN_1.png',12,1020,'2024-03-15',N'Áo khoác vest thường ngày phong cách nóng bỏng mùa thu đông 2023 của Dior Dior có thiết kế thời trang và đơn giản nhất, thanh lịch và tươm tất, đồng thời làm nổi bật sự tinh tế trong sự giản dị. Vải: Loại vải sợi polyester được tùy chỉnh công nghệ này không phải là thiết kế truyền thống mà trông trẻ trung và thời trang hơn.Các chi tiết rất đặc biệt về hiệu ứng phần thân trên.Đó là kiểu dáng thông thường nhưng đường may rất đặc biệt.Hiệu ứng không lỏng lẻo hoặc thon gọn nhưng vừa phải, dù béo hay gầy đều có thể mặc nhiều kiểu dáng khác nhau.LU Size:48-56',5,5,'NCC001',2),
+
+('SP0007',N'BỘ TUXEDO TRẮNG',1200000,N'BỘ TUXEDO TRẮNG_1.png',0,100,'2024-01-12',N'Áo khoác vest thường ngày phong cách nóng bỏng mùa thu đông 2023 của Dior Dior có thiết kế thời trang và đơn giản nhất, thanh lịch và tươm tất, đồng thời làm nổi bật sự tinh tế trong sự giản dị. Vải: Loại vải sợi polyester được tùy chỉnh công nghệ này không phải là thiết kế truyền thống mà trông trẻ trung và thời trang hơn.Các chi tiết rất đặc biệt về hiệu ứng phần thân trên.Đó là kiểu dáng thông thường nhưng đường may rất đặc biệt.Hiệu ứng không lỏng lẻo hoặc thon gọn nhưng vừa phải, dù béo hay gầy đều có thể mặc nhiều kiểu dáng khác nhau.LU Size:48-56',25,5,'NCC002',1),
+
+('SP0008',N'BỘ VEST 6 CÚC ĐEN',1400000,N'BỘ VEST 6 CÚC ĐEN_1.png',10,50,'2024-01-10',N'Áo khoác vest thường ngày phong cách nóng bỏng mùa thu đông 2023 của Dior Dior có thiết kế thời trang và đơn giản nhất, thanh lịch và tươm tất, đồng thời làm nổi bật sự tinh tế trong sự giản dị. Vải: Loại vải sợi polyester được tùy chỉnh công nghệ này không phải là thiết kế truyền thống mà trông trẻ trung và thời trang hơn.Các chi tiết rất đặc biệt về hiệu ứng phần thân trên.Đó là kiểu dáng thông thường nhưng đường may rất đặc biệt.Hiệu ứng không lỏng lẻo hoặc thon gọn nhưng vừa phải, dù béo hay gầy đều có thể mặc nhiều kiểu dáng khác nhau.LU Size:48-56',15,5,'NCC003',3),
+('SP0009',N'Áo dài limited',2000000,N'Áo dài limited-ACLM003_1.png',20,75,'2024-04-18',N'Áo dài Việt Nam là biểu tượng văn hóa đậm đà và thanh lịch của người phụ nữ Việt Nam. Với thiết kế dài, ôm sát cơ thể và tôn lên vẻ đẹp tự nhiên, áo dài thường được làm từ những loại vải cao cấp như silk hoặc cotton, thể hiện sự tinh tế và truyền thống của dân tộc. Áo dài không chỉ là trang phục truyền thống mà còn là biểu tượng của vẻ đẹp, sự kiêu sa và quyến rũ của phụ nữ Việt Nam.',100,3,'NCC002',2),
+('SP00010',N'LOOK 2 – ÁO DÀI VIÊN MÃN',2000000,N'LOOK 2 – ÁO DÀI VIÊN MÃN_1.png',20,75,'2024-04-18',N'Áo dài Việt Nam là một biểu tượng văn hóa lâu đời của dân tộc, mang trong mình nét đẹp kiêu sa và thanh lịch. Với thiết kế ôm sát cơ thể nhưng vẫn đảm bảo sự thoải mái, áo dài thường được làm từ các loại vải cao cấp như silk, satin hoặc cotton, tạo ra sự mềm mại và êm ái khi mặc. Ngoài việc là một trang phục truyền thống, áo dài còn được biết đến với sự đa dạng trong thiết kế và mẫu mã, từ áo dài cổ điển đến áo dài hiện đại, phản ánh sự phát triển và sáng tạo trong ngành thời trang của Việt Nam. Áo dài không chỉ là biểu tượng của vẻ đẹp nữ tính mà còn là biểu tượng của sự kiêu sa và quyến rũ của phụ nữ Việt Nam, được yêu thích và trân trọng trong nước và quốc tế.',28,3,'NCC003',3),
+('SP00011',N'LOOK 1 – ÁO DÀI VIÊN MÃN',2000000,N'LOOK 1 – ÁO DÀI VIÊN MÃN_1.png',20,75,'2024-04-18',N'Áo dài Việt Nam là biểu tượng văn hóa đậm đà và thanh lịch của người phụ nữ Việt Nam. Với thiết kế dài, ôm sát cơ thể và tôn lên vẻ đẹp tự nhiên, áo dài thường được làm từ những loại vải cao cấp như silk hoặc cotton, thể hiện sự tinh tế và truyền thống của dân tộc. Áo dài không chỉ là trang phục truyền thống mà còn là biểu tượng của vẻ đẹp, sự kiêu sa và quyến rũ của phụ nữ Việt Nam.',100,3,'NCC002',2)
+
+
+
+
+INSERT INTO ProductImageDetail(Url,MaSanPham) VALUES 
+(N'Váy lễ dòng premium limited-LM278.png','SP0001'),
+('1.png','SP0001'),
+('2.png','SP0001'),
+('3.png','SP0001'),
+
+(N'Váy bàn đuôi cá dòng Grace LXBCT108_1.png','SP0002'),
+(N'Váy bàn đuôi cá dòng Grace LXBCT108_2.png','SP0002'),
+(N'Váy bàn đuôi cá dòng Grace LXBCT108_3.png','SP0002'),
+
+(N'Váy lễ Haute Couture-CTH009_1.png','SP0003'),
+(N'Váy lễ Haute Couture-CTH009_2.png','SP0003'),
+
+('BỘ TUXEDO ĐEN CỔ GẤM_2.png','SP0005'),
+('BỘ TUXEDO ĐEN CỔ GẤM_3.png','SP0005'),
+('BỘ TUXEDO ĐEN CỔ GẤM_1.png','SP0005'),
+
+(N'BỘ TUXEDO ĐEN CỔ GẤM_1.png','SP0006'),
+(N'BỘ TUXEDO ĐEN CỔ GẤM_2.png','SP0006'),
+(N'BỘ TUXEDO ĐEN CỔ GẤM_3.png','SP0006'),
+(N'BỘ TUXEDO TRẮNG_1.png','SP0007'),
+(N'BỘ TUXEDO TRẮNG_2.png','SP0007'),
+(N'BỘ TUXEDO TRẮNG_3.png','SP0007'),
+
+(N'BỘ VEST 6 CÚC ĐEN_1.png','SP0008'),
+(N'BỘ VEST 6 CÚC ĐEN_2.png','SP0008'),
+(N'BỘ VEST 6 CÚC ĐEN_3.png','SP0008'),
+
+(N'Áo dài limited-ACLM003_1.png','SP0009'),
+(N'Áo dài limited-ACLM003_2.png','SP0009'),
+(N'Áo dài limited-ACLM003_3.png','SP0009'),
+
+(N'LOOK 2 – ÁO DÀI VIÊN MÃN_1.png','SP00010'),
+(N'LOOK 2 – ÁO DÀI VIÊN MÃN_2.png','SP00010'),
+(N'LOOK 2 – ÁO DÀI VIÊN MÃN_3.png','SP00010'),
+
+(N'LOOK 1 – ÁO DÀI VIÊN MÃN_1.png','SP00011'),
+(N'LOOK 1 – ÁO DÀI VIÊN MÃN_2.png','SP00011'),
+(N'LOOK 1 – ÁO DÀI VIÊN MÃN_3.png','SP00011')
+
+INSERT INTO photopackage(Tengoichup)
+values (N'Kỷ yếu'),
+(N'Prewedding'),
+(N'Tiệc cưới'),
+(N'Event')
+
+
+
+select * from nhaCungCaps
+delete Products
+delete nhaCungCaps
+select * from Products

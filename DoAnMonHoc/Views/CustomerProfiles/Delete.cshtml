@@ -1,0 +1,35 @@
+﻿@model DoAnMonHoc.Models.HoSoKhachHang
+
+<style>
+    .btn {
+        border-radius: 10px;
+    }
+</style>
+
+<h1>Xóa Khách Hàng</h1>
+
+<p><strong>ID:</strong> @Model.Id</p>
+<p><strong>Tên:</strong> @Model.Name</p>
+<p><strong>Tên Đăng Nhập:</strong> @Model.UserName</p>
+<p><strong>Email:</strong> @Model.Email</p>
+<p><strong>Địa Chỉ:</strong> @Model.Address</p>
+<p><strong>Sô Điện Thoại:</strong> @Model.PhoneNumber</p>
+
+<form id="deleteForm" asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+<form asp-action="Index" asp-controller="CustomerProfiles">
+    <button type="submit" class="btn btn-primary">Trở về</button>
+</form>
+
+<script>
+    document.getElementById("deleteForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        var confirmed = confirm("Bạn có chắc muốn xóa Hồ sơ này?");
+        if (confirmed) {
+            this.submit();
+        }
+    });
+</script>

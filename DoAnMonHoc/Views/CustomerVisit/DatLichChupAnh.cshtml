@@ -1,0 +1,96 @@
+﻿@model DoAnMonHoc.Models.Booking
+<body data-spy="scroll" data-target=".navbar" data-offset="51">
+    <
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <div class="row g-3">
+                        <div class="col-6 text-end">
+                            <img class="img-fluid bg-white w-100 mb-3 wow fadeIn" data-wow-delay="0.1s" src="~/img/sp-lecuoi/5.jpg" alt="">
+                            <img class="img-fluid bg-white w-50 wow fadeIn" data-wow-delay="0.2s" src="~/img/sp" alt="">
+                        </div>
+                        <div class="col-6">
+                            <img class="img-fluid bg-white w-50 mb-3 wow fadeIn" data-wow-delay="0.3s" src="~/img/sp-lecuoi/2.jpg" alt="">
+                            <img class="img-fluid bg-white w-100 wow fadeIn" data-wow-delay="0.4s" src="~/img/sp-lecuoi/3.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <div class="section-title">
+                        <p class="fs-5 fw-medium fst-italic text-primary"><big>Hãy đến với chúng tôi để tận hưởng những dịch vụ tốt nhất</big></p>
+                    </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-4">
+                            <img class="img-fluid bg-white w-100" src="~/img/sp-lecuoi/4.jpg" alt="">
+                        </div>
+                        <div class="col-sm-8">
+                            <h5>Đội ngũ chuyên nghiệp</h5>
+                            <p class="mb-0">Đội ngũ chụp ảnh cưới của AZ Studio chuyên nghiệp, lắng nghe và thực hiện ý tưởng về bộ ảnh trong mơ của bạn. Mẫu váy cưới tại AZ Studio được thiết kế độc quyền với nhiều mẫu mã tinh tế, thoả sức chọn lựa kiểu dáng.</p>
+                        </div>
+                    </div>
+                    <div class="border-top mb-4"></div>
+                    <div class="row g-3">
+                        <div class="col-sm-8">
+                            <h5>Tận tâm với khách hàng</h5>
+                            <p class="mb-0">
+                                Khi liên hệ với AZ Studio, các bạn sẽ được ekip chia sẻ qua các gói chụp. Dựa vào nhu cầu và tài chính mà các bạn có thể chọn gói chụp phù hợp nhất.<br />
+                                Sau khi chọn gói chụp ảnh cưới xong, các bạn sẽ tiến hành ấn định thời gian chụp.<br />
+                                Thông thường, thời điểm chụp ảnh cưới sẽ cách hôn lễ khoảng 1,5 đến 2 tháng hoặc sớm hơn, để không bị cập rập và ekip có thêm nhiều thời gian để chỉnh sửa ảnh chỉn chu nhất cho bạn.
+                            </p>
+                        </div>
+                        <div class="col-sm-4">
+                            <img class="img-fluid bg-white w-100" src="~/img/sp-lecuoi/1.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="button" class="btn btn-primary" id="show-form">Đặt lịch chụp hình ngay !</button>
+    </div>
+
+    <div id="form-container" style="display: none;" class="container mt-4">
+        <form asp-action="BookingNow" asp-controller="CustomerVisit">
+            <div class="mb-3">
+                <label  class="form-label">Họ và Tên</label>
+                <input type="text" class="form-control" name="Hovaten" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Số Điện Thoại</label>
+                <input type="tel" class="form-control" name="Sđt" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="Email" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Địa Chỉ</label>
+                <input type="text" class="form-control" name="Diachi" required>
+            </div>
+            <div class="mb-3">
+                <label for="note" class="form-label">Ghi Chú</label>
+                <textarea class="form-control" name="Ghichu"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Magoichup" class="form-label"></label>
+                <select asp-for="Magoichup" asp-items="ViewBag.PhotoPA" class="form-control"></select>
+            </div>
+            <div class="mb-3">
+                <label for="booking-time" class="form-label">Thời Gian Chụp dự kiến</label>
+                <input type="datetime-local" class="form-control" name="Ngaydukienchup" required>
+            </div>      
+            <button type="submit" class="btn btn-primary">Gửi</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('show-form').addEventListener('click', function () {
+                document.getElementById('form-container').style.display = 'block';
+            });
+        });
+    </script>
+</body>

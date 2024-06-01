@@ -1,0 +1,56 @@
+﻿@using DoAnMonHoc.ViewModel;
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<AppUser> signInManager
+@inject UserManager<AppUser> userManager
+<ul class="navbar-nav">
+	@if (signInManager.IsSignedIn(User))
+	{
+		var user = await userManager.GetUserAsync(User);
+		if (user != null)
+		{
+			var isRole = await userManager.IsInRoleAsync(user, "user");
+			if (isRole)
+			{
+				<div class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-user"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a asp-action="Index" asp-controller="Product" class="dropdown-item">Shop</a>
+						<a asp-action="Index" asp-controller="Cart" class="dropdown-item">Giỏ hàng</a>
+						<a asp-action="Index" asp-controller="OrderUser" class="dropdown-item">Đơn hàng đã mua</a>
+					</div>
+				</div>
+			}
+			else
+			{
+				<div class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fas fa-user"></i>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a asp-action="Index" asp-controller="ProductAdmin" class="dropdown-item">Shop Admin</a>
+						<a asp-action="Index" asp-controller="AlbumAdmin" class="dropdown-item">Quản lý Album</a>
+						<a asp-action="Index" asp-controller="CustomerProfiles" class="dropdown-item">Quản Lý Hồ Sơ Khách Hàng</a>
+						<a asp-action="Index" asp-controller="CustomerVisit" class="dropdown-item">Danh Sách Liên Hệ Của Khách Hàng</a>
+						<a asp-action="DanhSachDatLich" asp-controller="ProductAdmin" class="dropdown-item">Danh Sách Đặt Lịch Của Khách Hàng</a>
+						<a asp-action="DanhSachNguoiDungDatHang" asp-controller="ProductAdmin" class="dropdown-item">Danh Dách Các Đơn Đặt Hàng Của Khách Hàng</a>
+						<a asp-action="DoanhThu" asp-controller="ProductAdmin" class="dropdown-item">Báo Cáo Doanh Thu</a>
+					</div>
+				</div>
+			}
+		}
+		<li class="nav-item">
+			<a class="nav-link text-white" asp-action="Logout" asp-controller="Account">Logout</a>
+		</li>
+	}
+	else
+	{
+		<li class="nav-item">
+			<a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+		</li>
+	}
+</ul>

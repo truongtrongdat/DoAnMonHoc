@@ -1,0 +1,143 @@
+﻿@model DoAnMonHoc.Models.Album;
+
+<div class="conatiner mt-5 ">
+    <p class="h2 text-center">Thông tin album</p>
+
+    <a href="/AlbumAdmin" class="btn btn-primary">Quay lại</a>
+    <button type="button" class="btn btn-success float-end" onclick="Save()">Lưu</button>
+
+    
+    <div class="form-group w-75 shadow-lg m-auto p-3 bg-body rounded">
+
+        <input type="text" class="form-control" asp-for="AlbumId" hidden />
+
+        <div class="my-2"
+            <label class="form-label" for="TenAlbum">Tên album</label>
+            <input type="text" class="form-control" asp-for="TenAlbum" required/>
+        </div>
+
+
+        <div class="my-2"
+            <label class="form-label" for="GhiChu">Ghi chú</label>
+            <input type="text" class="form-control" asp-for="GhiChu" required/>
+        </div>
+
+        <div class="my-2"
+            <label class="form-label" for="LinkOutAlbumAnh">Link ablum</label>
+            <input type="text" class="form-control" asp-for="LinkOutAlbumAnh" required/>
+        </div>
+
+        <div class="my-2"
+            <label class="form-label" for="Type">Loại album</label>
+            <select class="form-control" asp-for="Type">
+                <option value="*" disabled selected>Vui lòng chọn</option>
+                <option value="filter-prewedding">Pre-Wedding</option>
+                <option value="filter-card">Kỷ hiếu</option>
+                <option value="filter-web">Fashion</option>
+                <option value="filter-lecuoi">Lễ cưới</option>
+                <option value="filter-event">Sự kiện</option>
+                <option value="filter-chandung">Chân dung</option>
+            </select>
+
+        </div>
+
+        <div class="my-2"
+            <label class="btn btn-primary" for="input_img" >Ảnh album</label>
+            <input type="text" class="form-control" asp-for="LinkAlbumAnh" hidden />
+            <input type="file" class="form-control" id="input_img"/>
+        </div>
+
+        <div class="m-2">
+            <img src="@Model.LinkAlbumAnh" id="show_img" style="width:100%; height:auto" />
+        </div>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
+    document.getElementById("input_img").addEventListener("change", function () {
+
+        let file = this.files[0];
+
+        let formData = new FormData();
+        formData.append("File", file);
+
+        fetch("/upload-image", {
+            method: "POST",
+            body: formData
+        })
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (res) {
+                document.getElementById("show_img").setAttribute("src", res.path);
+                document.getElementById("LinkAlbumAnh").value = res.path;
+            });
+    });
+
+    function isNullOrEmpty(value) {
+        return value.trim() === '';
+    }
+
+    function Save() {
+
+        let albumId = document.getElementById("AlbumId").value;
+        let tenAlbum = document.getElementById("TenAlbum").value;
+        let ghiChu = document.getElementById("GhiChu").value;
+        let linkOutAlbumAnh = document.getElementById("LinkOutAlbumAnh").value;
+        let type = document.getElementById("Type").value;
+        let linkAlbumAnh = document.getElementById("LinkAlbumAnh").value;
+
+        if (isNullOrEmpty(albumId) || isNullOrEmpty(tenAlbum) || isNullOrEmpty(ghiChu) || isNullOrEmpty(linkOutAlbumAnh) || isNullOrEmpty(type) || isNullOrEmpty(linkAlbumAnh)) {
+         
+            alert("Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
+        let formData = new FormData();
+        formData.append("AlbumId", albumId);
+        formData.append("TenAlbum", tenAlbum);
+        formData.append("GhiChu", ghiChu);
+        formData.append("LinkOutAlbumAnh", linkOutAlbumAnh);
+        formData.append("Type", type);
+        formData.append("LinkAlbumAnh", linkAlbumAnh);
+
+        fetch("/AlbumAdmin/Save", {
+            method: "POST",
+            body: formData
+        })
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (res) {
+                if (res.code = 200) {
+                    Toast.fire({
+                        icon: "success",
+                        title: "Thành công"
+                    }).then(() => {
+                        window.location.href = "/AlbumAdmin";
+                    });
+                } else {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Thất bại"
+                    });
+                }
+            });
+    }
+
+
+</script>

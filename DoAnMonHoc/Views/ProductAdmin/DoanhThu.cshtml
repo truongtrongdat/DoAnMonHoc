@@ -1,0 +1,100 @@
+﻿@model IEnumerable<DoAnMonHoc.ViewModel.DoanhThuVM>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Báo cáo Doanh thu - AZ_Studio</h1>
+
+        <!-- Biểu đồ doanh thu -->
+        <div class="row">
+            <div class="col-md-8">
+                <canvas id="revenueChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Bảng dữ liệu doanh thu -->
+        <div class="container">
+            <h2>Doanh thu hàng tháng</h2>
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Tháng</th>
+                        <th>Năm</th>
+                        <th>Số Lượng bán ra</th>
+                        <th>Tổng doanh thu (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   @if(Model.Count() > 0)
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Thang</td>
+                                <td>@item.Nam</td>
+                                <td>@item.SoLuong</td>
+                                <td>@item.TongTien.ToString("N0")</td> <!-- Định dạng hiển thị tiền Việt Nam -->
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <h1>không có sản phẩm nào được mua , rất buồn</h1>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Bootstrap và Chart.js JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Script để vẽ biểu đồ -->
+    <script>
+        // Khai báo mảng dữ liệu và nhãn trước khi sử dụng
+        var revenueDataVND = [];
+        var labels = [];
+        // Lặp qua từng item trong Model và thêm dữ liệu vào mảng
+        @foreach (var item in Model)
+        {
+            @:revenueDataVND.push(@item.TongTien); // Thêm dữ liệu doanh thu vào mảng
+            @:labels.push('@(item.Thang)/@(item.Nam)'); // Thêm nhãn (label) cho mỗi tháng/năm
+        }
+
+            // Khởi tạo biểu đồ
+            var ctx = document.getElementById('revenueChart').getContext('2d');
+        var revenueChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels, // Sử dụng labels ở đây
+                datasets: [{
+                    label: 'Doanh thu (VND)',
+                    data: revenueDataVND, // Sử dụng dữ liệu doanh thu ở đây
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            callback: function (value, index, values) {
+                                return value.toLocaleString('vi-VN') + ' VND'; // Định dạng số Tiền Việt Nam
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+
+        // Cập nhật dữ liệu cho bảng
+        var revenueTable = document.querySelector('.table tbody');
+        for (var i = 0; i < revenueDataVND.length; i++) {
+            var row = revenueTable.rows[i];
+            var cell = row.cells[3]; // Cột tổng doanh thu
+            cell.textContent = revenueDataVND[i].toLocaleString('vi-VN') + ' VND'; // Định dạng số Tiền Việt Nam
+        }
+        // Vẽ lại biểu đồ để cập nhật dữ liệu
+        revenueChart.update();
+    </script>
+</body>
