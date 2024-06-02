@@ -1,4 +1,6 @@
-﻿<!-- ======= San Pham Section ======= -->
+﻿@inject DoAnMonHoc.Data.ApplicationDbContext db;
+
+<!-- ======= San Pham Section ======= -->
 <section id="sanpham" class="portfolio">
     <div class="container" data-aos="fade-up">
         <div class="section-title position-relative text-center">
@@ -22,6 +24,22 @@
         </div>
 
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+            @foreach(var item in db.Album.ToList())
+            {
+                <div class="col-lg-4 col-md-6 portfolio-item @item.Type">
+                    <a href="@item.LinkOutAlbumAnh">
+                        <img src="@item.LinkAlbumAnh" class="img-fluid" alt="">
+                        <div class="portfolio-info text-center">
+                            <h4>@item.TenAlbum</h4>
+                            <p>@item.GhiChu</p>
+                            <a href="@item.LinkAlbumAnh" data-gallery="portfolioGallery"
+                               class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </a>
+                </div>
+            }
 
             <div class="col-lg-4 col-md-6 portfolio-item filter-lecuoi">
                 <a href="https://www.flickr.com/photos/195690727@N05/albums/72177720312520849/">

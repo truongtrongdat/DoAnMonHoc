@@ -23,7 +23,12 @@ namespace DoAnMonHoc.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Index(int? loai)
 		{
-			IQueryable<Product> products = _context.Products.AsQueryable();
+            if (!_helper.CheckPermission("ProductList", User.Identity?.Name ?? ""))
+            {
+                return Redirect("/Account/Login");
+            }
+
+            IQueryable<Product> products = _context.Products.AsQueryable();
 			if (loai.HasValue)
 			{
 				products = products.Where(p => p.MaLoai == loai.Value);
@@ -93,7 +98,11 @@ namespace DoAnMonHoc.Controllers
 		}
 		public async Task<IActionResult> AddNewProduct()
 		{
-			await setDataCategoriesAsync();
+            if (!_helper.CheckPermission("ProductAdd", User.Identity?.Name ?? ""))
+            {
+                return Redirect("/Account/Login");
+            }
+            await setDataCategoriesAsync();
 			return View();
 		}
 		[HttpPost]
@@ -156,6 +165,12 @@ namespace DoAnMonHoc.Controllers
 		}
 		public async Task<IActionResult> UpdateProduct(string maSP)
 		{
+
+			if (!_helper.CheckPermission("ProductEdit", User.Identity?.Name ?? ""))
+			{
+                return Redirect("/Account/Login");
+            }
+
 			 var product = await _context.Products.Include(p => p.HinhAnhChiTiet).
 				SingleOrDefaultAsync(p => p.MaSanPham.ToLower().Trim() == maSP.ToLower().Trim());
 			if (product != null)
@@ -230,6 +245,11 @@ namespace DoAnMonHoc.Controllers
 		}
 		public async Task<IActionResult> DeleteProduct(string maSP)
 		{
+			if (!_helper.CheckPermission("ProductDelete", User.Identity?.Name ?? ""))
+			{
+                return Redirect("/Account/Login");
+            }
+
 			var productDelete = await _context.Products.FindAsync(maSP);
 			if (productDelete != null)
 			{

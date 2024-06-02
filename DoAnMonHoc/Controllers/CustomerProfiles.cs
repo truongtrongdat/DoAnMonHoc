@@ -58,7 +58,7 @@ namespace DoAnMonHoc.Controllers
         {
             if (!_helper.CheckPermission("UserDelete", User.Identity?.Name ?? ""))
             {
-                return NotFound();
+                return Redirect("/Account/Login");
             }
 
             var customerProfile = await _context.Users.FindAsync(id);
@@ -136,7 +136,8 @@ namespace DoAnMonHoc.Controllers
             });
         }
 
-        public async Task<IActionResult> Details(string id)
+        [HttpGet("CustomerProfiles/Detail/{id}")]
+        public async Task<IActionResult> Detail(string id)
         {
             if (!_helper.CheckPermission("UserDetail", User.Identity?.Name ?? ""))
             {
@@ -153,6 +154,7 @@ namespace DoAnMonHoc.Controllers
             return View(customerProfile);
         }
 
+        [HttpPost("change-role")]
         public async Task<IActionResult> ChangeRole([FromForm] ChangeRoleViewModel vm)
         {
             try
@@ -160,7 +162,12 @@ namespace DoAnMonHoc.Controllers
                 var user = await _context.Users
                     .FirstOrDefaultAsync(m => m.Id == vm.Id);
 
-                await _userManager.RemoveFromRoleAsync(user, user.Role);
+                user.Role = vm.Role;
+                _context.Update(user);
+                _context.SaveChanges();
+
+                var roles = await _userManager.GetRolesAsync(user);
+                await _userManager.RemoveFromRolesAsync(user, roles);
 
                 await _userManager.AddToRoleAsync(user, vm.Role);
 
@@ -180,6 +187,7 @@ namespace DoAnMonHoc.Controllers
             }
         }
 
+        [HttpPost("change-permission")]
         public IActionResult UpdatePermission(Permission vm)
         {
 

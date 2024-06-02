@@ -1,3 +1,187 @@
 ﻿@model DoAnMonHoc.ViewModel.AppUser;
 
 <p class="h2">Chi tiết người dùng</p>
+
+<div class="container">
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row">Tên</th>
+                <td>@Model.Name</td>
+            </tr>
+            <tr>
+                <th scope="row">Tên Đăng Nhập</th>
+                <td>@Model.UserName</td>
+            </tr>
+            <tr>
+                <th scope="row">Email</th>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <th scope="row">Địa Chỉ</th>
+                <td>@Model.Address</td>
+            </tr>
+            <tr>
+                <th scope="row">Số Điện Thoại</th>
+                <td>@Model.PhoneNumber</td>
+            </tr>
+            <tr>
+                <th scope="row">Role</th>
+                <td>
+                    <span>@Model.Role</span>
+                    @if (Model.Role == "admin" || Model.Role == "manager")
+                    {
+                        <button class="btn btn-warning float-end" onclick="ChangeRole('@Model.Id', 'user')">Chuyển thành user</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-warning float-end" onclick="ChangeRole('@Model.Id', 'manager')">Chuyển thành manager</button>
+                    }
+                </td>
+            </tr>
+            @if(Model.Role == "manager" || Model.Role =="admin")
+            {
+                <tr>
+                    <th scope="row">Quyền hạn</th>
+                    <td class="d-flex flex-wrap gap-3">
+                        <div class="form-group">
+                            <h5>Khách hàng</h5>
+                            <div class="form-check">
+                                <input id="UserList" value="UserList" class="form-check-input" type="checkbox">
+                                <label for="UserList" class="form-check-label">Xem danh sách</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="UserDetail" value="UserDetail" class="form-check-input" type="checkbox">
+                                <label for="UserDetail" class="form-check-label">Phân quyền</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="UserDelete" value="UserDelete" class="form-check-input" type="checkbox">
+                                <label for="UserDelete" class="form-check-label">xóa</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="UserResetPassword" value="UserResetPassword" class="form-check-input" type="checkbox">
+                                <label for="UserResetPassword" class="form-check-label">Cập nhật mật khẩu</label>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <h5>Album</h5>
+                            <div class="form-check">
+                                <input id="AlbumList" value="AlbumList" class="form-check-input" type="checkbox">
+                                <label for="AlbumList" class="form-check-label">Xem danh sách</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="AlbumAddEdit" value="AlbumAddEdit" class="form-check-input" type="checkbox">
+                                <label for="AlbumAddEdit" class="form-check-label">Thêm, chỉnh sửa</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="AlbumDelete" value="AlbumDelete" class="form-check-input" type="checkbox">
+                                <label for="AlbumDelete" class="form-check-label">xóa</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <h5>Sản phẩm</h5>
+                            <div class="form-check">
+                                <input id="ProductList" value="ProductList" class="form-check-input" type="checkbox">
+                                <label for="ProductList" class="form-check-label">Xem danh sách</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="ProductAdd" value="ProductAdd" class="form-check-input" type="checkbox">
+                                <label for="ProductAdd" class="form-check-label">Thêm sản phẩm</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="ProductEdit" value="ProductEdit" class="form-check-input" type="checkbox">
+                                <label for="ProductEdit" class="form-check-label">Chỉnh sửa</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="ProductDelete" value="ProductDelete" class="form-check-input" type="checkbox">
+                                <label for="ProductDelete" class="form-check-label">Xóa</label>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-between">
+        <a asp-action="Index" asp-controller="CustomerProfiles" class="btn btn-outline-primary btn-sm">Quay lại</a>
+        <button type="button" class="btn btn-success" onclick="Save()">Lưu</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let checked = '@Html.Raw(Model.Permission)'
+        console.log(checked)
+        $.each(JSON.parse(checked), function (index, value) {
+            $('input[type="checkbox"][value="' + value + '"]').prop('checked', true);
+        });
+    });
+
+
+    function ChangeRole(userId, role){
+        let formData = new FormData()
+        formData.append("Id", userId)
+        formData.append("Role", role)
+
+        fetch("/change-role", {
+            method:"POST",
+            body: formData
+        })
+        .then(res=>res.json())
+            .then(res => {
+                if (res.code == 200) {
+                    window.location.reload()
+                }
+            })
+    }
+
+    function Save() {
+        let checkedValues = [];
+        $('input[type="checkbox"]:checked').each(function () {
+            checkedValues.push($(this).val());
+        });
+        let formData = new FormData();
+        formData.append("Id", '@Model.Id');
+        formData.append("Permissions", JSON.stringify(checkedValues));
+        fetch('/change-permission', {
+            method: "POST",
+            body: formData
+        })
+        .then(res=>res.json())
+            .then(res => {
+                if (res.code = 200) {
+                    Toast.fire({
+                        icon: "success",
+                        title: "Thành công"
+                    })
+                } else {
+                    Toast.fire({
+                        icon: "error",
+                        title: "Thất bại"
+                    });
+                }
+            })
+    }
+
+</script>
