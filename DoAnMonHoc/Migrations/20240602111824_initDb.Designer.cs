@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoAnMonHoc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240601095036_add-abum")]
-    partial class addabum
+    [Migration("20240602111824_initDb")]
+    partial class initDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,6 +48,10 @@ namespace DoAnMonHoc.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AlbumId");
 
@@ -711,6 +715,9 @@ namespace DoAnMonHoc.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Permission")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")

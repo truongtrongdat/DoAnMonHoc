@@ -47,6 +47,10 @@ namespace DoAnMonHoc.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("AlbumId");
 
                     b.ToTable("Album");
@@ -709,6 +713,9 @@ namespace DoAnMonHoc.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Permission")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
