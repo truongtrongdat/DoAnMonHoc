@@ -4,6 +4,8 @@ using DoAnMonHoc.Services;
 using DoAnMonHoc.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing.Printing;
 
 namespace DoAnMonHoc.Controllers
 {
@@ -22,7 +24,7 @@ namespace DoAnMonHoc.Controllers
             _helper = helper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int pageSize = 5)
         {
 
             if (!_helper.CheckPermission("AlbumList", User.Identity?.Name??""))
@@ -30,7 +32,18 @@ namespace DoAnMonHoc.Controllers
                 return Redirect("/Account/Login");
             }
 
-            return View(_context.Album.OrderByDescending(i=>i.AlbumId).ToList());
+            var albums = _context.Album.OrderByDescending(i => i.AlbumId);
+            var totalAlbums = albums.Count();
+            var albumsList = albums.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            var viewModel = new Paging<Album>
+            {
+                Data = albumsList,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(totalAlbums / (double)pageSize)
+            };
+
+            return View(viewModel);
         }
 
         [HttpGet("AlbumAdmin/AddEdit/{Id}")]
