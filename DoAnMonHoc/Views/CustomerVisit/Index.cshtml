@@ -1,6 +1,12 @@
 ﻿@model IEnumerable<MessageCustomerVisit>
 
-<h2 class="my-4">Danh sách liên hệ của khách hàng</h2>
+<div class="container-fluid bg-secondary mb-2 d-flex justify-content-center align-items-center" style="min-height: 200px; position: relative;">
+    <img src="~/img/shop/header_shop.jpg" alt="AZ Studio Shop Header Image" class="position-absolute top-0 left-0 w-100" style="max-height: 100%; object-fit: cover;" />
+    <div class="d-flex flex-column align-items-center justify-content-center text-white" style="z-index: 1;">
+        <h1 class="font-weight-semi-bold mb-3">AZ-Studio Danh sách liên hệ của khách hàng</h1>
+    </div>
+</div>
+
 @if (Model != null && Model.Count() > 0)
 {
     <div class="container">

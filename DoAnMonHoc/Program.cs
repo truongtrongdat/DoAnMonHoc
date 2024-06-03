@@ -44,6 +44,7 @@ builder.Services.AddAuthorization(options =>
 		policy.RequireRole("admin");
 	});
 });
+builder.WebHost.UseUrls("http://0.0.0.0");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

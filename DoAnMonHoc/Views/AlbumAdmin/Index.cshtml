@@ -1,9 +1,14 @@
 ﻿@model DoAnMonHoc.ViewModel.Paging<Album>
 
+<div class="container-fluid bg-secondary mb-2 d-flex justify-content-center align-items-center" style="min-height: 200px; position: relative;">
+    <img src="~/img/shop/header_shop.jpg" alt="AZ Studio Shop Header Image" class="position-absolute top-0 left-0 w-100" style="max-height: 100%; object-fit: cover;" />
+    <div class="d-flex flex-column align-items-center justify-content-center text-white" style="z-index: 1;">
+        <h1 class="font-weight-semi-bold mb-3">AZ-Studio Quản lý Album</h1>
+    </div>
+</div>
 
 <div class="container">
-    <p class="h2 text-center"> Quản lý Album</p>
-
+    
     <a href="/ProductAdmin" class="btn btn-primary">Quay lại</a>
 
     <div class="btn-group float-end mb-4">
@@ -12,7 +17,7 @@
         </a>
     </div>
 
-    <table class="table" id="table">
+    <table class="table table-bordered" id="table">
         <thead class="table-dark">
             <tr>
                 <td>Id</td>
